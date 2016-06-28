@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>AddToPath</id>
+    <version>1.0.0.0</version>
+    <authors>Michael Allen</authors>
+    <owners>mallen</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Adds a directory path to the PATH environment variable</description>
+    <copyright>Copyright 2016</copyright>
+    <tags>Utility</tags>
+  </metadata>
+  <files>
+    <file src="..\..\bin\AddToPath.exe" target="tools"/>
+  </files>
+</package>

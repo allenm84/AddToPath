@@ -13,28 +13,24 @@ namespace AddToPath
 
     static void Main(string[] args)
     {
-      if (args.Length != 1)
-      {
-        Console.Error.WriteLine("Expected a directory path");
-        Environment.Exit(160);
-        return;
-      }
+      AppLogger.WriteLine("Received: {0}", string.Join(", ", args));
 
-      string path = args[0];
+      string path = "";
       try
       {
+        path = args[0];
         var attr = File.GetAttributes(path);
         if (!attr.HasFlag(FileAttributes.Directory))
         {
-          Console.Error.WriteLine("The path provided is not a directory");
+          AppLogger.WriteLine("The path provided is not a directory");
           Environment.Exit(267);
           return;
         }
       }
       catch (Exception ex)
       {
-        Console.Error.WriteLine(ex.Message);
-        Environment.Exit(267);
+        AppLogger.WriteLine("Error retrieving attributes: {0}", ex.Message);
+        Environment.Exit(1);
         return;
       }
       
@@ -49,7 +45,7 @@ namespace AddToPath
 
       if (exists)
       {
-        Console.Out.WriteLine("The directory is already in the PATH variable");
+        AppLogger.WriteLine("The directory is already in the PATH variable");
       }
       else
       {
@@ -57,11 +53,11 @@ namespace AddToPath
         try
         {
           Environment.SetEnvironmentVariable(Name, string.Join(";", paths), EnvironmentVariableTarget.Machine);
-          Console.Out.WriteLine("The directory added to the PATH variable");
+          AppLogger.WriteLine("The directory was added to the PATH variable");
         }
         catch (Exception ex)
         {
-          Console.Error.WriteLine(ex.Message);
+          AppLogger.WriteLine("Error setting variable name: ", ex.Message);
           Environment.Exit(1);
           return;
         }
